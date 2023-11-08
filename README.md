@@ -1,6 +1,6 @@
-# Snaplogic Chatbot UI
+# Chatbot UI
 
-Snaplogic Chatbot UI is built from Chatbot UI, an open source chat UI for AI models.
+This is forked from Chatbot UI, an open source chat UI for AI models.
 
 ## Running Locally
 
