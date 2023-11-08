@@ -7,7 +7,7 @@ Snaplogic Chatbot UI is built from Chatbot UI, an open source chat UI for AI mod
 **1. Clone Repo**
 
 ```bash
-git clone https://github.com/mckaywrigley/chatbot-ui.git
+git clone https://github.com/shuminCA/chatbot-ui.git
 ```
 
 **2. Install Dependencies**
