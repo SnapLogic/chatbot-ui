@@ -1,3 +1,43 @@
+# Snaplogic Chatbot UI
+
+Snaplogic Chatbot UI is built from Chatbot UI, an open source chat UI for AI models.
+
+## Running Locally
+
+**1. Clone Repo**
+
+```bash
+git clone https://github.com/mckaywrigley/chatbot-ui.git
+```
+
+**2. Install Dependencies**
+
+```bash
+npm i
+```
+
+**3. Provide OpenAI API Key**
+
+Create a .env.local file in the root of the repo with your OpenAI API Key:
+
+```bash
+NEXT_PUBLIC_API_ENDPOINT=YOUR_ENDPOINT
+NEXT_PUBLIC_BEARER_TOKEN=YOUR_TOKEN
+```
+
+**4. Run App**
+
+```bash
+npm run dev
+```
+
+**5. Use It**
+
+You should be able to start chatting.
+
+----------------------------------------------
+
+
 # Chatbot UI
 
 ## News
