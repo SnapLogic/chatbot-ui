@@ -33,7 +33,7 @@ npm run dev
 
 **5. Use It**
 
-You should be able to start chatting.
+You should be able to start chatting. For better experience, please go to "Settings" -> "Theme" and select "light mode".
 
 ----------------------------------------------
 
