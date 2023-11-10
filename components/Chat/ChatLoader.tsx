@@ -13,7 +13,11 @@ export const ChatLoader: FC<Props> = () => {
         <div className="min-w-[40px] items-end">
           <IconRobot size={30} />
         </div>
-        <span className="animate-pulse cursor-default mt-1">▍</span>
+        <div className="flex">
+          <span className="dot animate-fade"></span>
+          <span className="dot animate-fade200"></span>
+          <span className="dot animate-fade400"></span>
+        </div>
       </div>
     </div>
   );
