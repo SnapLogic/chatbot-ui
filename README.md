@@ -16,9 +16,9 @@ git clone https://github.com/shuminCA/chatbot-ui.git
 npm i
 ```
 
-**3. Provide OpenAI API Key**
+**3. Provide Pipeline Endpoint and Bearer Token**
 
-Create a .env.local file in the root of the repo with your OpenAI API Key:
+Create a .env.local file in the root of the repo with your pipeline endpoint and bearer token:
 
 ```bash
 NEXT_PUBLIC_API_ENDPOINT=YOUR_ENDPOINT
