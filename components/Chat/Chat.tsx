@@ -11,7 +11,6 @@ import toast from 'react-hot-toast';
 
 import { useTranslation } from 'next-i18next';
 
-import { getEndpoint } from '@/utils/app/api';
 import {
   saveConversation,
   saveConversations,
@@ -28,6 +27,7 @@ import { ChatInput } from './ChatInput';
 import { ChatLoader } from './ChatLoader';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { Logo } from './Logo';
+import pipelineConfig from "../../pipeline.config";
 
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
@@ -41,6 +41,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       selectedConversation,
       conversations,
       loading,
+      pipelineId
     },
     handleUpdateConversation,
     dispatch: homeDispatch,
@@ -61,7 +62,14 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = useCallback(
-    async (message: Message, deleteCount = 0, plugin: Plugin | null = null) => {
+    async (message: Message, deleteCount = 0) => {
+      const selectedPipeline = pipelineConfig.pipelines.find(
+        pipeline => pipeline.id === pipelineId
+      )
+      const endpoint = selectedPipeline ? selectedPipeline.url : null;
+      if (!endpoint) {
+        throw new Error('Pipeline endpoint not found');
+      }
       if (selectedConversation) {
         let updatedConversation: Conversation;
         if (deleteCount) {
@@ -88,16 +96,17 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         const chatBody: ChatBody = {
           messages: updatedConversation.messages,
         };
-        const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
-        const bearerToken = process.env.NEXT_PUBLIC_BEARER_TOKEN;
 
-        console.log(endpoint)
-        console.log(bearerToken)
+        const bearerTokenEnvName = `NEXT_PUBLIC_BEARER_TOKEN_${pipelineId}`;
+        const bearerToken = process.env[bearerTokenEnvName];
 
-        // const endpoint = "http://localhost:8888/api/1/rest/slsched/feed/snaplogic/projects/shared/RAG%20Task"
+        console.log("endpoint", endpoint);
+        console.log("pipelineId", pipelineId);
+        console.log("bearerTokenName", bearerTokenEnvName);
+        console.log("token", process.env[bearerTokenEnvName]);
 
-        if (typeof endpoint === 'undefined' || typeof bearerToken === 'undefined') {
-          throw new Error('REACT_APP_API_ENDPOINT or REACT_APP_BEARER_TOKEN is not defined');
+        if (!bearerToken) {
+          throw new Error('NEXT_PUBLIC_BEARER_TOKEN is not defined');
         }
 
         let body;
@@ -123,7 +132,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           body,
         });
         if (!response.ok) {
-          console.log("nonono !response.ok");
+          console.log("no http response!");
           homeDispatch({ field: 'loading', value: false });
           homeDispatch({ field: 'messageIsStreaming', value: false });
           toast.error(response.statusText);
@@ -174,6 +183,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       conversations,
       selectedConversation,
       stopConversationRef,
+      pipelineId
     ],
   );
 
@@ -290,14 +300,14 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       <ChatInput
         stopConversationRef={stopConversationRef}
         textareaRef={textareaRef}
-        onSend={(message, plugin) => {
+        onSend={(message) => {
           setCurrentMessage(message);
-          handleSend(message, 0, plugin);
+          handleSend(message, 0);
         }}
         onScrollDownClick={handleScrollDown}
         onRegenerate={() => {
           if (currentMessage) {
-            handleSend(currentMessage, 2, null);
+            handleSend(currentMessage, 2);
           }
         }}
         showScrollDownButton={showScrollDownButton}

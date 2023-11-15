@@ -178,19 +178,6 @@ const Home = ({
     }
   }, [selectedConversation]);
 
-  useEffect(() => {
-    serverSideApiKeyIsSet &&
-      dispatch({
-        field: 'serverSideApiKeyIsSet',
-        value: serverSideApiKeyIsSet,
-      });
-    serverSidePluginKeysSet &&
-      dispatch({
-        field: 'serverSidePluginKeysSet',
-        value: serverSidePluginKeysSet,
-      });
-  }, [serverSideApiKeyIsSet, serverSidePluginKeysSet]);
-
   // ON LOAD --------------------------------------------
 
   useEffect(() => {
@@ -199,6 +186,13 @@ const Home = ({
       dispatch({
         field: 'lightMode',
         value: settings.theme,
+      });
+    }
+
+    if (settings.pipelineId) {
+      dispatch({
+        field: 'pipelineId',
+        value: settings.pipelineId,
       });
     }
 

@@ -8,7 +8,10 @@ import { getSettings, saveSettings } from '@/utils/app/settings';
 
 import { Settings } from '@/types/settings';
 
+import pipelineConfig from "../../pipeline.config";
+
 import HomeContext from '@/pages/api/home/home.context';
+import { pipeline } from 'stream';
 
 interface Props {
   open: boolean;
@@ -17,7 +20,9 @@ interface Props {
 
 export const SettingDialog: FC<Props> = ({ open, onClose }) => {
   const { t } = useTranslation('settings');
-  const settings: Settings = getSettings();
+  const settings: Settings = {
+    ...getSettings()
+  };
   const { state, dispatch } = useCreateReducer<Settings>({
     initialState: settings,
   });
@@ -45,7 +50,9 @@ export const SettingDialog: FC<Props> = ({ open, onClose }) => {
 
   const handleSave = () => {
     homeDispatch({ field: 'lightMode', value: state.theme });
+    homeDispatch({ field: 'pipelineId', value: state.pipelineId });
     saveSettings(state);
+    console.log("pipeline id", state.pipelineId);
   };
 
   // Render nothing if the dialog is not open.
@@ -71,6 +78,23 @@ export const SettingDialog: FC<Props> = ({ open, onClose }) => {
             <div className="text-lg pb-4 font-bold text-black dark:text-neutral-200">
               {t('Settings')}
             </div>
+
+            <div className="text-sm font-bold mb-2 text-black dark:text-neutral-200">
+              Pipeline
+            </div>
+            <select
+              className="w-full cursor-pointer bg-transparent p-2 text-neutral-700 dark:text-neutral-200 mb-4"
+              value={state.pipelineId}
+              onChange={(event) =>
+                dispatch({ field: 'pipelineId', value: parseInt(event.target.value) })
+              }
+            >
+              {pipelineConfig.pipelines.map(pipeline => (
+                <option key={pipeline.id} value={pipeline.id}>
+                  {pipeline.name}
+                </option>
+              ))}
+            </select>
 
             <div className="text-sm font-bold mb-2 text-black dark:text-neutral-200">
               {t('Theme')}
