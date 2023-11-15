@@ -29,9 +29,12 @@ import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { Logo } from './Logo';
 import pipelineConfig from "../../pipeline.config";
 
+import '../../config.js';
+
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
 }
+
 
 export const Chat = memo(({ stopConversationRef }: Props) => {
   const { t } = useTranslation('chat');
@@ -66,6 +69,10 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       const selectedPipeline = pipelineConfig.pipelines.find(
         pipeline => pipeline.id === pipelineId
       )
+      if (!selectedPipeline) {
+        throw new Error('Pipeline not found');
+      }
+
       const endpoint = selectedPipeline ? selectedPipeline.url : null;
       if (!endpoint) {
         throw new Error('Pipeline endpoint not found');
@@ -97,13 +104,19 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           messages: updatedConversation.messages,
         };
 
-        const bearerTokenEnvName = `NEXT_PUBLIC_BEARER_TOKEN_${pipelineId}`;
-        const bearerToken = process.env[bearerTokenEnvName];
+        // const bearerTokenEnvName = `NEXT_PUBLIC_BEARER_TOKEN_${pipelineId}`;
+        // const bearerToken = process.env[bearerTokenEnvName]
+        
+        // console.log(process.env);
+        // console.log(process.env.NEXT_PUBLIC_BEARER_TOKEN_0);
+        // console.log(process.env.NEXT_PUBLIC_BEARER_TOKEN_1);
+        // console.log(process.env.NEXT_PUBLIC_BEARER_TOKEN_2);
+        // console.log("endpoint", endpoint);
+        // console.log("pipelineId", pipelineId);
+        // console.log("bearerTokenName", selectedPipeline.envVar);
+        // console.log("token", process.env[selectedPipeline.envVar]);
 
-        console.log("endpoint", endpoint);
-        console.log("pipelineId", pipelineId);
-        console.log("bearerTokenName", bearerTokenEnvName);
-        console.log("token", process.env[bearerTokenEnvName]);
+        const bearerToken = selectedPipeline.apiKey;
 
         if (!bearerToken) {
           throw new Error('NEXT_PUBLIC_BEARER_TOKEN is not defined');
