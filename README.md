@@ -5,6 +5,7 @@ This is forked from Chatbot UI, an open source chat UI for AI models.
 ## To use multiple pipelines, please go to branch v2.
 
 ## Running Locally
+If you are using v2, please refer to the README.md in v2.
 
 **1. Clone Repo**
 
