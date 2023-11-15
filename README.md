@@ -18,11 +18,31 @@ npm i
 
 **3. Provide Pipeline Endpoint and Bearer Token**
 
-Create a .env.local file in the root of the repo with your pipeline endpoint and bearer token:
+Right now there are some issue about reading token with constructed name from the .env.local file.As a workaround, please modify the pipeline.config.js file in the root of the repo with your pipeline endpoint and bearer token.
 
 ```bash
-NEXT_PUBLIC_API_ENDPOINT=YOUR_ENDPOINT
-NEXT_PUBLIC_BEARER_TOKEN=YOUR_TOKEN
+const pipelineConfig = {
+    "pipelines": [
+        {
+            "id": 0,
+            "name": "RAG",
+            "url": "http://localhost:8888/api/1/rest/***********/RAG%20Task",
+            "apiKey": "********************************"
+        },
+        {
+            "id": 1,
+            "name": "Index",
+            "url": "http://localhost:8888/api/1/rest/***********/IndexTask",
+            "apiKey": "********************************"
+        },
+        {
+            "id": 2,
+            "name": "Embedding",
+            "url": "http://localhost:8888/api/1/rest/***********/EmbeddingTask",
+            "apiKey": "********************************"
+        }
+    ]
+}
 ```
 
 **4. Run App**
