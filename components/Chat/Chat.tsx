@@ -29,8 +29,6 @@ import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { Logo } from './Logo';
 import pipelineConfig from "../../pipeline.config";
 
-import '../../config.js';
-
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
 }
