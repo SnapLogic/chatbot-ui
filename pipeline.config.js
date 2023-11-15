@@ -20,3 +20,5 @@ const pipelineConfig = {
         }
     ]
 }
+
+module.exports = pipelineConfig;
