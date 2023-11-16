@@ -137,12 +137,50 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         } else {
           const jsonResponse = await response.json();
           console.log("jsonResponse", jsonResponse);
-          const answer = jsonResponse[0].choices[0].content;
-          console.log("answer", answer);
-          const updatedMessages: Message[] = [
-            ...updatedConversation.messages,
-            { role: 'assistant', content: answer },
-          ];
+          const answer : string = jsonResponse[0].choices[0].content as string;
+          // const answer = "<div> <p className=\"underline text-red-500\">Your string with red underline</p> </div>";
+          // const updatedMessages: Message[] = [
+          //   ...updatedConversation.messages,
+          //   { role: 'assistant', content: ${answer} },
+          // ];
+          // const answer = "Your string with red underline";
+        // const answer = `Swimming Spectacle
+        // In this document, we will explore various highlights from the world of swimming, covering exhilarating competitions, exceptional athletes, and record-breaking feats in the pool.
+        // [Red Line] Before we dive into the world of swimming, let's discuss some delectable options at the poolside cafe. Swimmers and spectators alike can enjoy a range of snacks, from refreshing fruit platters to energy-boosting smoothies.
+        // The first highlight of the day was a riveting freestyle relay. The relay teams showcased incredible speed and teamwork, with each swimmer pushing their limits to secure victory. Cheers echoed through the aquatic arena as the winning team touched the wall.
+        // In the individual events, a world-class swimmer shattered records in the butterfly stroke, leaving spectators in awe of the athlete's skill and precision.
+        // [Red Line] By the pool, there's a grill serving delicious barbecue dishes. Many gather there to enjoy grilled treats and the vibrant atmosphere.
+        // The last highlight of the day was a closely contested backstroke final. Swimmers raced with determination, and the finish was so close that a photo finish was needed to determine the winner.
+        // After the swimming events, you can visit the nearby ice cream parlor for a cool treat, adding a sweet conclusion to a day filled with thrilling swims and delightful refreshments.`;
+        
+        // Create a div element to hold the HTML content
+        // const answerContainer = document.createElement("div");
+        // answerContainer.innerHTML = `<span style="text-decoration: underline; color: red;">${answer}</span>`;
+
+        console.log("LLM snap answer: ", answer);
+        // Split the answer into sentences
+        const sentences = answer.split(/(?<!\s\.)([.!?])/);
+        // Identify sentences after [Red Line] and wrap them in a span with a red underline
+        const resultHTML = sentences
+          .map((sentence) => {
+            console.log("sentence: ", sentence);
+            if (sentence.includes('[Red Line]')) {
+              const [, restOfSentence] = sentence.split('[Red Line]');
+              return `<span style="border-bottom: 2px solid red;">${restOfSentence.trim()}</span>`;
+            } else {
+              return sentence;
+            }
+          })
+          .join('');
+
+        console.log("Rendered HTML result with red line: ", resultHTML);
+
+
+        const updatedMessages: Message[] = [
+          ...updatedConversation.messages,
+          { role: 'assistant', content: resultHTML },
+        ];
+
           updatedConversation = {
             ...updatedConversation,
             messages: updatedMessages,
