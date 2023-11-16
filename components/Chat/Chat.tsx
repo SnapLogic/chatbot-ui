@@ -161,7 +161,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         // Split the answer into sentences
         const sentences = answer.split(/(?<!\s\.)([.!?])/);
         // Identify sentences after [Red Line] and wrap them in a span with a red underline
-        const resultHTML = sentences
+        const renderdAnswer = sentences
           .map((sentence) => {
             console.log("sentence: ", sentence);
             if (sentence.includes('[Red Line]')) {
@@ -173,12 +173,12 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           })
           .join('');
 
-        console.log("Rendered HTML result with red line: ", resultHTML);
+        console.log("Rendered HTML result with red line: ", renderdAnswer);
 
 
         const updatedMessages: Message[] = [
           ...updatedConversation.messages,
-          { role: 'assistant', content: resultHTML },
+          { role: 'assistant', content: renderdAnswer },
         ];
 
           updatedConversation = {
