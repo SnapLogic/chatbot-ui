@@ -16,7 +16,7 @@ git clone https://github.com/shuminCA/chatbot-ui.git
 npm i
 ```
 
-### 3. Provide Pipeline Endpoint and Bearer Token**
+### 3. Provide Pipeline Endpoint and Bearer Token
 
 #### Important: Workaround for Issue with Constructed Name Tokens in Our Project
 
