@@ -4,13 +4,13 @@ This is forked from Chatbot UI, an open source chat UI for AI models.
 
 ## Running Locally
 
-### 1. Clone Repo**
+### 1. Clone Repo
 
 ```bash
 git clone https://github.com/shuminCA/chatbot-ui.git
 ```
 
-### 2. Install Dependencies**
+### 2. Install Dependencies
 
 ```bash
 npm i
@@ -56,13 +56,13 @@ const pipelineConfig = {
 }
 ```
 
-**4. Run App**
+### 4. Run App
 
 ```bash
 npm run dev
 ```
 
-**5. Use It**
+### 5. Use It
 
 You should be able to start chatting. For better experience, please go to "Settings" -> "Theme" and select "light mode".
 
