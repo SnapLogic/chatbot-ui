@@ -140,6 +140,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           const answer : string = jsonResponse[0].choices[0].content as string;
 
           console.log("LLM snap answer: ", answer);
+          // Replace characters that could be interpreted as HTML tags from original answer
+          answer.replace(/</g, '&lt;').replace(/>/g, '&gt;');
           // Split the answer into sentences
           const sentences = answer.split(/(?<!\s\.)([.!?])/);
           // Identify sentences after [Red Line] and wrap them in a span with a red underline
@@ -148,7 +150,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
               console.log("sentence: ", sentence);
               if (sentence.includes('[Red Line]')) {
                 const [, restOfSentence] = sentence.split('[Red Line]');
-                return `<span style="border-bottom: 2px solid red;">${restOfSentence.trim()}</span>`;
+                return ` <span style="border-bottom: 2px solid red;">${restOfSentence.trim()}</span>`;
               } else {
                 return sentence;
               }
