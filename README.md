@@ -4,21 +4,32 @@ This is forked from Chatbot UI, an open source chat UI for AI models.
 
 ## Running Locally
 
-**1. Clone Repo**
+### 1. Clone Repo**
 
 ```bash
 git clone https://github.com/shuminCA/chatbot-ui.git
 ```
 
-**2. Install Dependencies**
+### 2. Install Dependencies**
 
 ```bash
 npm i
 ```
 
-**3. Provide Pipeline Endpoint and Bearer Token**
+### 3. Provide Pipeline Endpoint and Bearer Token**
 
-Right now there are some issue about reading token with constructed name from the .env.local file.As a workaround, please modify the pipeline.config.js file in the root of the repo with your pipeline endpoint and bearer token.
+#### Important: Workaround for Issue with Constructed Name Tokens in Our Project
+
+We've identified a specific issue in our project setup related to token handling: the system is currently struggling to read tokens that have constructed names from the `.env.local` file. This file is crucial as it typically stores sensitive information, including tokens with dynamically generated names, which our application needs during runtime.
+
+#### Temporary Solution:
+To navigate around this challenge, here's a temporary workaround:
+
+**1. Open the `pipeline.config.js` File:** This file can be found at the root of our repository.
+
+**2. Manual Token Insertion:** You will need to manually enter your pipeline endpoint and bearer token in this file. The key here is to replace the constructed name tokens, which the system isn't reading correctly, with the actual values.
+
+Example:
 
 ```bash
 const pipelineConfig = {
