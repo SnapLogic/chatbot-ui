@@ -9,8 +9,8 @@ import Head from 'next/head';
 import { useCreateReducer } from '@/hooks/useCreateReducer';
 
 import useErrorService from '@/services/errorService';
-// import useApiService from '@/services/useApiService';
 
+// import useApiService from '@/services/useApiService';
 import {
   cleanConversationHistory,
   cleanSelectedConversation,
@@ -30,6 +30,7 @@ import { KeyValuePair } from '@/types/data';
 import { FolderInterface, FolderType } from '@/types/folder';
 
 import { Chat } from '@/components/Chat/Chat';
+import { Logo } from '@/components/Chat/Logo';
 import { Chatbar } from '@/components/Chatbar/Chatbar';
 import { Navbar } from '@/components/Mobile/Navbar';
 
@@ -37,17 +38,13 @@ import HomeContext from './home.context';
 import { HomeInitialState, initialState } from './home.state';
 
 import { v4 as uuidv4 } from 'uuid';
-import { Logo } from '@/components/Chat/Logo';
 
 interface Props {
   serverSideApiKeyIsSet: boolean;
   serverSidePluginKeysSet: boolean;
 }
 
-const Home = ({
-  serverSideApiKeyIsSet,
-  serverSidePluginKeysSet,
-}: Props) => {
+const Home = ({ serverSideApiKeyIsSet, serverSidePluginKeysSet }: Props) => {
   const { t } = useTranslation('chat');
   // const { getModels } = useApiService();
   const [initialRender, setInitialRender] = useState<boolean>(true);
@@ -57,12 +54,7 @@ const Home = ({
   });
 
   const {
-    state: {
-      lightMode,
-      folders,
-      conversations,
-      selectedConversation,
-    },
+    state: { lightMode, folders, conversations, selectedConversation },
     dispatch,
   } = contextValue;
 
@@ -258,9 +250,7 @@ const Home = ({
         },
       });
     }
-  }, [
-    dispatch,
-  ]);
+  }, [dispatch]);
 
   return (
     <HomeContext.Provider
@@ -275,8 +265,8 @@ const Home = ({
       }}
     >
       <Head>
-        <title>SnapLogic Chatbot</title>
-        <meta name="description" content="SnapLogic LLM Application Builder." />
+        <title>Acme Chatbot</title>
+        <meta name="description" content="Acme Chatbot." />
         <meta
           name="viewport"
           content="height=device-height ,width=device-width, initial-scale=1, user-scalable=no"
