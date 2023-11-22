@@ -26,8 +26,8 @@ import HomeContext from '@/pages/api/home/home.context';
 import Spinner from '../Spinner';
 import { ChatInput } from './ChatInput';
 import { ChatLoader } from './ChatLoader';
-import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { Logo } from './Logo';
+import { MemoizedChatMessage } from './MemoizedChatMessage';
 
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
@@ -37,11 +37,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   const { t } = useTranslation('chat');
 
   const {
-    state: {
-      selectedConversation,
-      conversations,
-      loading,
-    },
+    state: { selectedConversation, conversations, loading },
     handleUpdateConversation,
     dispatch: homeDispatch,
   } = useContext(HomeContext);
@@ -91,13 +87,18 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
         const bearerToken = process.env.NEXT_PUBLIC_BEARER_TOKEN;
 
-        console.log(endpoint)
-        console.log(bearerToken)
+        console.log(endpoint);
+        console.log(bearerToken);
 
         // const endpoint = "http://localhost:8888/api/1/rest/slsched/feed/snaplogic/projects/shared/RAG%20Task"
 
-        if (typeof endpoint === 'undefined' || typeof bearerToken === 'undefined') {
-          throw new Error('REACT_APP_API_ENDPOINT or REACT_APP_BEARER_TOKEN is not defined');
+        if (
+          typeof endpoint === 'undefined' ||
+          typeof bearerToken === 'undefined'
+        ) {
+          throw new Error(
+            'REACT_APP_API_ENDPOINT or REACT_APP_BEARER_TOKEN is not defined',
+          );
         }
 
         let body;
@@ -108,22 +109,22 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         //     ...chatBody,
         //   });
         // }
-        const jsonRequest = { "source": null, "prompt": message["content"] };
+        const jsonRequest = { source: null, prompt: message['content'] };
         const controller = new AbortController();
-        console.log("jsonContent", jsonRequest);
+        console.log('jsonContent', jsonRequest);
         body = JSON.stringify(jsonRequest);
 
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${bearerToken}`
+            Authorization: `Bearer ${bearerToken}`,
           },
           signal: controller.signal,
           body,
         });
         if (!response.ok) {
-          console.log("nonono !response.ok");
+          console.log('nonono !response.ok');
           homeDispatch({ field: 'loading', value: false });
           homeDispatch({ field: 'messageIsStreaming', value: false });
           toast.error(response.statusText);
@@ -136,50 +137,49 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           return;
         } else {
           const jsonResponse = await response.json();
-          console.log("jsonResponse", jsonResponse);
-          const answer : string = jsonResponse[0].choices[0].content as string;
+          console.log('jsonResponse', jsonResponse);
+          const answer: string = jsonResponse[0].choices[0].content as string;
           // const answer = "<div> <p className=\"underline text-red-500\">Your string with red underline</p> </div>";
           // const updatedMessages: Message[] = [
           //   ...updatedConversation.messages,
           //   { role: 'assistant', content: ${answer} },
           // ];
           // const answer = "Your string with red underline";
-        // const answer = `Swimming Spectacle
-        // In this document, we will explore various highlights from the world of swimming, covering exhilarating competitions, exceptional athletes, and record-breaking feats in the pool.
-        // [Red Line] Before we dive into the world of swimming, let's discuss some delectable options at the poolside cafe. Swimmers and spectators alike can enjoy a range of snacks, from refreshing fruit platters to energy-boosting smoothies.
-        // The first highlight of the day was a riveting freestyle relay. The relay teams showcased incredible speed and teamwork, with each swimmer pushing their limits to secure victory. Cheers echoed through the aquatic arena as the winning team touched the wall.
-        // In the individual events, a world-class swimmer shattered records in the butterfly stroke, leaving spectators in awe of the athlete's skill and precision.
-        // [Red Line] By the pool, there's a grill serving delicious barbecue dishes. Many gather there to enjoy grilled treats and the vibrant atmosphere.
-        // The last highlight of the day was a closely contested backstroke final. Swimmers raced with determination, and the finish was so close that a photo finish was needed to determine the winner.
-        // After the swimming events, you can visit the nearby ice cream parlor for a cool treat, adding a sweet conclusion to a day filled with thrilling swims and delightful refreshments.`;
-        
-        // Create a div element to hold the HTML content
-        // const answerContainer = document.createElement("div");
-        // answerContainer.innerHTML = `<span style="text-decoration: underline; color: red;">${answer}</span>`;
+          // const answer = `Swimming Spectacle
+          // In this document, we will explore various highlights from the world of swimming, covering exhilarating competitions, exceptional athletes, and record-breaking feats in the pool.
+          // [Red Line] Before we dive into the world of swimming, let's discuss some delectable options at the poolside cafe. Swimmers and spectators alike can enjoy a range of snacks, from refreshing fruit platters to energy-boosting smoothies.
+          // The first highlight of the day was a riveting freestyle relay. The relay teams showcased incredible speed and teamwork, with each swimmer pushing their limits to secure victory. Cheers echoed through the aquatic arena as the winning team touched the wall.
+          // In the individual events, a world-class swimmer shattered records in the butterfly stroke, leaving spectators in awe of the athlete's skill and precision.
+          // [Red Line] By the pool, there's a grill serving delicious barbecue dishes. Many gather there to enjoy grilled treats and the vibrant atmosphere.
+          // The last highlight of the day was a closely contested backstroke final. Swimmers raced with determination, and the finish was so close that a photo finish was needed to determine the winner.
+          // After the swimming events, you can visit the nearby ice cream parlor for a cool treat, adding a sweet conclusion to a day filled with thrilling swims and delightful refreshments.`;
 
-        console.log("LLM snap answer: ", answer);
-        // Split the answer into sentences
-        const sentences = answer.split(/(?<!\s\.)([.!?])/);
-        // Identify sentences after [Red Line] and wrap them in a span with a red underline
-        const renderdAnswer = sentences
-          .map((sentence) => {
-            console.log("sentence: ", sentence);
-            if (sentence.includes('[Red Line]')) {
-              const [, restOfSentence] = sentence.split('[Red Line]');
-              return `<span style="border-bottom: 2px solid red;">${restOfSentence.trim()}</span>`;
-            } else {
-              return sentence;
-            }
-          })
-          .join('');
+          // Create a div element to hold the HTML content
+          // const answerContainer = document.createElement("div");
+          // answerContainer.innerHTML = `<span style="text-decoration: underline; color: red;">${answer}</span>`;
 
-        console.log("Rendered HTML result with red line: ", renderdAnswer);
+          console.log('LLM snap answer: ', answer);
+          // Split the answer into sentences
+          const sentences = answer.split(/(?<!\s\.)([.!?])/);
+          // Identify sentences after [Red Line] and wrap them in a span with a red underline
+          const renderdAnswer = sentences
+            .map((sentence) => {
+              console.log('sentence: ', sentence);
+              if (sentence.includes('[Red Line]')) {
+                const [, restOfSentence] = sentence.split('[Red Line]');
+                return `<span style="border-bottom: 2px solid red;">${restOfSentence.trim()}</span>`;
+              } else {
+                return sentence;
+              }
+            })
+            .join('');
 
+          console.log('Rendered HTML result with red line: ', renderdAnswer);
 
-        const updatedMessages: Message[] = [
-          ...updatedConversation.messages,
-          { role: 'assistant', content: renderdAnswer },
-        ];
+          const updatedMessages: Message[] = [
+            ...updatedConversation.messages,
+            { role: 'assistant', content: renderdAnswer },
+          ];
 
           updatedConversation = {
             ...updatedConversation,
@@ -208,11 +208,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         }
       }
     },
-    [
-      conversations,
-      selectedConversation,
-      stopConversationRef,
-    ],
+    [conversations, selectedConversation, stopConversationRef],
   );
 
   const scrollToBottom = useCallback(() => {
@@ -270,7 +266,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
   useEffect(() => {
     throttledScrollDown();
-    selectedConversation && selectedConversation.messages &&
+    selectedConversation &&
+      selectedConversation.messages &&
       setCurrentMessage(
         selectedConversation.messages[selectedConversation.messages.length - 2],
       );
@@ -314,15 +311,13 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
               key={index}
               message={message}
               messageIndex={index}
-            />);
+            />
+          );
         })}
 
         {loading && <ChatLoader />}
 
-        <div
-          className="h-[162px] bg-white dark:bg-[#343d62]"
-          ref={messagesEndRef}
-        />
+        <div className="h-[162px]" ref={messagesEndRef} />
       </div>
 
       <ChatInput

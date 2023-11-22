@@ -33,7 +33,6 @@ html {
 }
 
 @keyframes fade {
-
   0%,
   100% {
     opacity: 0.2;
@@ -45,7 +44,7 @@ html {
 }
 
 .dot {
-  @apply w-2 h-2 bg-black dark:bg-white rounded-full mx-1;
+  @apply mx-1 h-2 w-2 rounded-full bg-black dark:bg-white;
   /* Adjust width, height, background color as needed */
 }
 
@@ -64,6 +63,11 @@ html {
   @apply inline-block;
   animation: fade 0.9s infinite;
   animation-delay: 0.6s;
+}
+
+.relative.flex-1.overflow-hidden {
+  background-image: url('background_blur.png');
+  background-size: cover;
 }
 
 @media (max-width: 720px) {
