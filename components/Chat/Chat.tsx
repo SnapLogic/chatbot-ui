@@ -22,28 +22,22 @@ import { ChatBody, Conversation, Message } from '@/types/chat';
 
 import HomeContext from '@/pages/api/home/home.context';
 
+import pipelineConfig from '../../pipeline.config';
 import Spinner from '../Spinner';
 import { ChatInput } from './ChatInput';
 import { ChatLoader } from './ChatLoader';
-import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { Logo } from './Logo';
-import pipelineConfig from "../../pipeline.config";
+import { MemoizedChatMessage } from './MemoizedChatMessage';
 
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
 }
 
-
 export const Chat = memo(({ stopConversationRef }: Props) => {
   const { t } = useTranslation('chat');
 
   const {
-    state: {
-      selectedConversation,
-      conversations,
-      loading,
-      pipelineId
-    },
+    state: { selectedConversation, conversations, loading, pipelineId },
     handleUpdateConversation,
     dispatch: homeDispatch,
   } = useContext(HomeContext);
@@ -65,8 +59,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   const handleSend = useCallback(
     async (message: Message, deleteCount = 0) => {
       const selectedPipeline = pipelineConfig.pipelines.find(
-        pipeline => pipeline.id === pipelineId
-      )
+        (pipeline) => pipeline.id === pipelineId,
+      );
       if (!selectedPipeline) {
         throw new Error('Pipeline not found');
       }
@@ -104,7 +98,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
         // const bearerTokenEnvName = `NEXT_PUBLIC_BEARER_TOKEN_${pipelineId}`;
         // const bearerToken = process.env[bearerTokenEnvName]
-        
+
         // console.log(process.env);
         // console.log(process.env.NEXT_PUBLIC_BEARER_TOKEN_0);
         // console.log(process.env.NEXT_PUBLIC_BEARER_TOKEN_1);
@@ -128,22 +122,22 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         //     ...chatBody,
         //   });
         // }
-        const jsonRequest = { "source": null, "prompt": message["content"] };
+        const jsonRequest = { source: null, prompt: message['content'] };
         const controller = new AbortController();
-        console.log("jsonContent", jsonRequest);
+        console.log('jsonContent', jsonRequest);
         body = JSON.stringify(jsonRequest);
 
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${bearerToken}`
+            Authorization: `Bearer ${bearerToken}`,
           },
           signal: controller.signal,
           body,
         });
         if (!response.ok) {
-          console.log("no http response!");
+          console.log('no http response!');
           homeDispatch({ field: 'loading', value: false });
           homeDispatch({ field: 'messageIsStreaming', value: false });
           toast.error(response.statusText);
@@ -156,9 +150,9 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           return;
         } else {
           const jsonResponse = await response.json();
-          console.log("jsonResponse", jsonResponse);
+          console.log('jsonResponse', jsonResponse);
           const answer = jsonResponse[0].choices[0].content;
-          console.log("answer", answer);
+          console.log('answer', answer);
           const updatedMessages: Message[] = [
             ...updatedConversation.messages,
             { role: 'assistant', content: answer },
@@ -190,12 +184,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         }
       }
     },
-    [
-      conversations,
-      selectedConversation,
-      stopConversationRef,
-      pipelineId
-    ],
+    [conversations, selectedConversation, stopConversationRef, pipelineId],
   );
 
   const scrollToBottom = useCallback(() => {
@@ -253,7 +242,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
   useEffect(() => {
     throttledScrollDown();
-    selectedConversation && selectedConversation.messages &&
+    selectedConversation &&
+      selectedConversation.messages &&
       setCurrentMessage(
         selectedConversation.messages[selectedConversation.messages.length - 2],
       );
@@ -297,15 +287,13 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
               key={index}
               message={message}
               messageIndex={index}
-            />);
+            />
+          );
         })}
 
         {loading && <ChatLoader />}
 
-        <div
-          className="h-[162px] bg-white dark:bg-[#343d62]"
-          ref={messagesEndRef}
-        />
+        <div className="h-[162px]" ref={messagesEndRef} />
       </div>
 
       <ChatInput
