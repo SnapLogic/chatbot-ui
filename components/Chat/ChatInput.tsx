@@ -270,7 +270,7 @@ export const ChatInput = ({
         </a>
         .{' '}
         {t(
-          'A fictional corporation that features prominently in the Road Runner/Wile E. Coyote animated shorts as a running gag.',
+          'A fictional corporation that that operates a chain of hypermarkets and grocery stores.',
         )}
       </div>
     </div>

@@ -135,6 +135,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           },
           signal: controller.signal,
           body,
+          mode: 'no-cors',
         });
         if (!response.ok) {
           console.log('no http response!');

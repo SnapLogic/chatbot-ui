@@ -2,22 +2,16 @@ const pipelineConfig = {
     "pipelines": [
         {
             "id": 0,
-            "name": "RAG",
-            "url": "http://localhost:8888/api/1/rest/***********/RAG%20Task",
-            "apiKey": "********************************"
+            "name": "Acme Sales",
+            "url": "http://localhost:8888/api/1/rest/slsched/feed/snaplogic/projects/shared/RAG%20Task",
+            "apiKey": "CFvuIwc0g6wGFbpyUR5Z645T9SfYoWPu"
         },
         {
             "id": 1,
-            "name": "Index",
-            "url": "http://localhost:8888/api/1/rest/***********/IndexTask",
-            "apiKey": "********************************"
+            "name": "canary pipeline",
+            "url": "https://canary.elastic.snaplogicdev.com/api/1/rest/slsched/feed/snaplogic/DynamicValidationProjectSpace/shared/snap-gpt%20prompt%20RAG%20Task",
+            "apiKey": "PkS12OubyCQvDJYiFjfbQE0YMVQMg8UW"
         },
-        {
-            "id": 2,
-            "name": "Embedding",
-            "url": "http://localhost:8888/api/1/rest/***********/EmbeddingTask",
-            "apiKey": "********************************"
-        }
     ]
 }
 
