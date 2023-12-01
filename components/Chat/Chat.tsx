@@ -159,8 +159,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
           console.log("Rendered HTML result with red line: ", renderdAnswer);
 
-          // const finalAnswer = renderdAnswer.replace(/<(?!span\sstyle="border-bottom: 2px solid red;")[^>]*>/g, '');
-          // const finalAnswer = renderdAnswer.replace(/<(?!span\sstyle="border-bottom: 2px solid red;")[^>]*>/g, '');
           // console.log("Final answer after removing html tag for red underline: ", finalAnswer);
           
           const updatedMessages: Message[] = [
