@@ -95,7 +95,7 @@ const Folder = ({
     <>
       <div className="relative flex items-center">
         {isRenaming ? (
-          <div className="flex w-full items-center gap-3 bg-[#C08E6F]/90 p-3">
+          <div className="flex w-full items-center gap-3 bg-[#53709E]/90 p-3">
             {isOpen ? (
               <IconCaretDown size={18} />
             ) : (
@@ -112,7 +112,7 @@ const Folder = ({
           </div>
         ) : (
           <button
-            className={`flex w-full cursor-pointer items-center gap-3 rounded-lg p-3 text-sm transition-colors duration-200 hover:bg-[#C08E6F]/20`}
+            className={`flex w-full cursor-pointer items-center gap-3 rounded-lg p-3 text-sm transition-colors duration-200 hover:bg-[#53709E]/20`}
             onClick={() => setIsOpen(!isOpen)}
             onDrop={(e) => dropHandler(e)}
             onDragOver={allowDrop}
