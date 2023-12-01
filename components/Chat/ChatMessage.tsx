@@ -125,6 +125,10 @@ export const ChatMessage: FC<Props> = memo(({ message, messageIndex, onEdit }) =
     }
   }, [isEditing]);
 
+  // Check if the message content contains HTML tags
+  const isHTMLContent = /<\/?[a-z][\s\S]*>/i.test(message.content);
+  console.log("Is HTML Content ? : ", isHTMLContent);
+
   return (
     <div
       className={`group md:px-4 ${message.role === 'assistant'
@@ -261,11 +265,22 @@ export const ChatMessage: FC<Props> = memo(({ message, messageIndex, onEdit }) =
                   },
                 }}
               >
-                {`${message.content}${messageIsStreaming && messageIndex == (selectedConversation?.messages.length ?? 0) - 1 ? '`▍`' : ''
-                  }`}
               </MemoizedReactMarkdown>
 
               <div className="md:-mr-8 ml-1 md:ml-0 flex flex-col md:flex-row gap-4 md:gap-1 items-center md:items-start justify-end md:justify-start">
+                {isHTMLContent ? (
+                  // Render HTML to draw red underline
+                  <div dangerouslySetInnerHTML={{ __html: message.content }} />
+                ) : (
+                  // Render plain text
+                  <div>
+                    {`${message.content}${
+                      messageIsStreaming && messageIndex === (selectedConversation?.messages.length ?? 0) - 1
+                        ? '`▍`'
+                        : ''
+                    }`}
+                  </div>
+                )}
                 {messagedCopied ? (
                   <IconCheck
                     size={20}

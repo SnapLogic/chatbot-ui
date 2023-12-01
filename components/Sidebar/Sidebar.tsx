@@ -58,11 +58,11 @@ const Sidebar = <T,>({
   return isOpen ? (
     <div>
       <div
-        className={`fixed top-0 ${side}-0 z-40 flex h-full w-[260px] flex-none flex-col space-y-2 bg-[#07224E] p-2 text-[14px] transition-all sm:relative sm:top-0`}
+        className={`fixed top-0 ${side}-0 z-40 flex h-full w-[260px] flex-none flex-col space-y-2 bg-[#513530] p-2 text-[14px] transition-all sm:relative sm:top-0`}
       >
         <div className="flex items-center">
           <button
-            className="text-sidebar flex w-[190px] flex-shrink-0 cursor-pointer select-none items-center gap-3 rounded-md border border-white/20 p-3 text-white transition-colors duration-200 hover:bg-gray-500/10"
+            className="text-sidebar flex w-[190px] flex-shrink-0 cursor-pointer select-none items-center gap-3 rounded-md border border-white/20 p-3 text-white transition-colors duration-200 hover:bg-[#C08E6F]/20"
             onClick={() => {
               handleCreateItem();
               handleSearchTerm('');
@@ -73,7 +73,7 @@ const Sidebar = <T,>({
           </button>
 
           <button
-            className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-white/20 p-3 text-sm text-white transition-colors duration-200 hover:bg-gray-500/10"
+            className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-white/20 p-3 text-sm text-white transition-colors duration-200 hover:bg-[#C08E6F]/20"
             onClick={handleCreateFolder}
           >
             <IconFolderPlus size={16} />

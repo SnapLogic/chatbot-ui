@@ -328,11 +328,11 @@ export const ChatInput = ({
           rel="noreferrer"
           className="underline"
         >
-          SnapChain
+          ACME Corporation
         </a>
         .{' '}
         {t(
-          "SnapLogic's iPaaS platform empowers enterprises by automating application, data and cloud integration.",
+          "A fictional corporation that that operates a chain of hypermarkets and grocery stores.",
         )}
       </div>
     </div>
