@@ -321,7 +321,7 @@ export const ChatInput = ({
           )}
         </div>
       </div>
-      <div className="px-3 pt-2 pb-3 text-center text-[12px] text-black/50 dark:text-white/50 md:px-4 md:pt-3 md:pb-6">
+      {/* <div className="px-3 pt-2 pb-3 text-center text-[12px] text-black/50 dark:text-white/50 md:px-4 md:pt-3 md:pb-6">
         <a
           href="https://www.snaplogic.com/"
           target="_blank"
@@ -334,7 +334,7 @@ export const ChatInput = ({
         {t(
           "SnapLogic's iPaaS platform empowers enterprises by automating application, data and cloud integration.",
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

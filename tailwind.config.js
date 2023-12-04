@@ -7,7 +7,16 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'sidebar': '#07224E',
+        'conversation': '#53709E',
+        'searchbar': '#141B38',
+      },
+      textColor: {
+        'primary': '#1C3194',
+      }
+    },
   },
   variants: {
     extend: {

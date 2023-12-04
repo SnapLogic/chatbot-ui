@@ -48,6 +48,10 @@ const Home = ({
   serverSideApiKeyIsSet,
   serverSidePluginKeysSet,
 }: Props) => {
+  const CONSTANTS = require('../../../constants.config');
+
+  const chatbotTitle = CONSTANTS.chatbotTitle ? CONSTANTS.chatbotTitle : "";
+
   const { t } = useTranslation('chat');
   // const { getModels } = useApiService();
   const [initialRender, setInitialRender] = useState<boolean>(true);
@@ -275,13 +279,13 @@ const Home = ({
       }}
     >
       <Head>
-        <title>SnapLogic Chatbot</title>
+        <title>{chatbotTitle}</title>
         <meta name="description" content="SnapLogic LLM Application Builder." />
         <meta
           name="viewport"
           content="height=device-height ,width=device-width, initial-scale=1, user-scalable=no"
         />
-        <link rel="icon" href="/avatar.png" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       {selectedConversation && (
         <main
