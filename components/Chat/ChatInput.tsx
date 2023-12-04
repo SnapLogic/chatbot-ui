@@ -328,11 +328,11 @@ export const ChatInput = ({
           rel="noreferrer"
           className="underline"
         >
-          ACME Corporation
+          SnapLogic
         </a>
         .{' '}
         {t(
-          "A fictional corporation that that operates a chain of hypermarkets and grocery stores.",
+          "Automated workflow solutions for every team and workplace.",
         )}
       </div>
     </div>

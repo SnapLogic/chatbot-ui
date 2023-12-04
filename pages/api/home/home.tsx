@@ -275,7 +275,7 @@ const Home = ({
       }}
     >
       <Head>
-        <title>SnapLogic Chatbot</title>
+        <title>SnapChain</title>
         <meta name="description" content="SnapLogic LLM Application Builder." />
         <meta
           name="viewport"
