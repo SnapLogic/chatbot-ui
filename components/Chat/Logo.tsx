@@ -8,7 +8,7 @@ type LogoProps = {
 export const Logo: React.FC<LogoProps> = ({ children }) => {
     const CONSTANTS = require('../../constants.config');
     
-    const logoText = CONSTANTS.logoText ? CONSTANTS.logoText : "";
+    const logoText = CONSTANTS.chatbotName ? CONSTANTS.chatbotName : "";
     return (
         <div className="sticky top-0 z-40 flex justify-center items-center h-12 bg-white shadow-md">
             {/* <img src={logo.src} alt="Logo" className="h-full object-contain transform" /> */}
