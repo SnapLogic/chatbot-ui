@@ -137,8 +137,33 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         } else {
           const jsonResponse = await response.json();
           console.log("jsonResponse", jsonResponse);
-          const answer = jsonResponse[0].choices[0].content;
-          console.log("answer", answer);
+
+          let answer : string = jsonResponse[0].choices[0].content as string;
+          console.log("LLM snap answer: ", answer);
+          // Replace characters that could be interpreted as HTML tags from original answer
+
+          // **************Redline*****************
+          // render answer with Red Line use case
+          if (answer !== null && answer.includes("[Red Line]")) {
+            answer.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            // Split the answer into sentences
+            const sentences = answer.split(/(?<!\s\.)([.!?])/);
+            // Identify sentences after [Red Line] and wrap them in a span with a red underline
+            answer = sentences
+              .map((sentence) => {
+                console.log("sentence: ", sentence);
+                if (sentence.includes('[Red Line]')) {
+                  const [, restOfSentence] = sentence.split('[Red Line]');
+                  return ` <span style="border-bottom: 2px solid red;">${restOfSentence.trim()}</span>`;
+                } else {
+                  return sentence;
+                }
+              })
+              .join('');
+            console.log("Rendered HTML result with red line: ", answer);
+          }
+           // **************Redline*****************
+           
           const updatedMessages: Message[] = [
             ...updatedConversation.messages,
             { role: 'assistant', content: answer },
