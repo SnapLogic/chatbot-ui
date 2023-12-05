@@ -42,6 +42,9 @@ You should be able to start chatting. For better experience, please go to "Setti
 
 This interface allows users to personalize various aspects of their chatbot's appearance, including text elements and color schemes. Follow these steps to tailor your chatbot to your preferences.
 
+<img width="1108" alt="Screenshot 2023-12-04 at 4 01 16 PM" src="https://github.com/shuminCA/chatbot-ui/assets/89661340/02e81123-7401-4a9b-b3d4-3066e53fcae8">
+
+
 **1. Customizing Text Elements**
 
 You can modify the following text elements:
