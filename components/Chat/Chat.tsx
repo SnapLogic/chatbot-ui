@@ -143,7 +143,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           // Replace characters that could be interpreted as HTML tags from original answer
 
           // render answer with Red Line use case
-          if (answer.includes("[Red Line]")) {
+          if (answer !== null && answer.includes("[Red Line]")) {
             answer.replace(/</g, '&lt;').replace(/>/g, '&gt;');
             // Split the answer into sentences
             const sentences = answer.split(/(?<!\s\.)([.!?])/);
