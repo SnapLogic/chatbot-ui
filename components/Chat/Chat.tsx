@@ -140,11 +140,11 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
           let answer : string = jsonResponse[0].choices[0].content as string;
           console.log("LLM snap answer: ", answer);
-          // Replace characters that could be interpreted as HTML tags from original answer
 
           // **************Redline*****************
           // render answer with Red Line use case
           if (answer !== null && answer.includes("[Red Line]")) {
+            // Disable potential HTML tags from original answer to avoid XSS Attack
             answer.replace(/</g, '&lt;').replace(/>/g, '&gt;');
             // Split the answer into sentences
             const sentences = answer.split(/(?<!\s\.)([.!?])/);
@@ -162,7 +162,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
               .join('');
             console.log("Rendered HTML result with red line: ", answer);
           }
-           // **************Redline*****************
+          // **************Redline*****************
            
           const updatedMessages: Message[] = [
             ...updatedConversation.messages,
