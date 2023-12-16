@@ -9,12 +9,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'sidebar': '#07224E',
-        'conversation': '#53709E',
-        'searchbar': '#141B38',
+        'sidebar': '#513530',
+        'conversation': '#C08E6F',
+        'searchbar': '#392522',
       },
       textColor: {
-        'primary': '#1C3194',
+        'primary': '#513530',
       }
     },
   },

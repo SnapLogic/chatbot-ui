@@ -11,7 +11,6 @@ import toast from 'react-hot-toast';
 
 import { useTranslation } from 'next-i18next';
 
-import { getEndpoint } from '@/utils/app/api';
 import {
   saveConversation,
   saveConversations,
@@ -138,7 +137,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           const jsonResponse = await response.json();
           console.log("jsonResponse", jsonResponse);
 
-          let answer : string = jsonResponse[0].choices[0].content as string;
+          let answer: string = jsonResponse[0].choices[0].content as string;
           console.log("LLM snap answer: ", answer);
 
           // **************Redline*****************
@@ -163,7 +162,11 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
             console.log("Rendered HTML result with red line: ", answer);
           }
           // **************Redline*****************
+<<<<<<< HEAD
            
+=======
+
+>>>>>>> 235744e (Modify classes to run npm build)
           const updatedMessages: Message[] = [
             ...updatedConversation.messages,
             { role: 'assistant', content: answer },

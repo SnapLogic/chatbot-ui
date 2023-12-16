@@ -8,7 +8,6 @@ import {
   SupportedExportFormats,
 } from '@/types/export';
 import { FolderInterface } from '@/types/folder';
-import { Prompt } from '@/types/prompt';
 
 import { cleanConversationHistory } from './clean';
 
@@ -36,7 +35,6 @@ export function cleanData(data: SupportedExportFormats): LatestExportFormat {
       version: 4,
       history: cleanConversationHistory(data),
       folders: [],
-      prompts: [],
     };
   }
 
@@ -49,12 +47,11 @@ export function cleanData(data: SupportedExportFormats): LatestExportFormat {
         name: chatFolder.name,
         type: 'chat',
       })),
-      prompts: [],
     };
   }
 
   if (isExportFormatV3(data)) {
-    return { ...data, version: 4, prompts: [] };
+    return { ...data, version: 4 };
   }
 
   if (isExportFormatV4(data)) {
@@ -112,7 +109,7 @@ export const exportData = () => {
 export const importData = (
   data: SupportedExportFormats,
 ): LatestExportFormat => {
-  const { history, folders, prompts } = cleanData(data);
+  const { history, folders } = cleanData(data);
 
   const oldConversations = localStorage.getItem('conversationHistory');
   const oldConversationsParsed = oldConversations
@@ -147,18 +144,9 @@ export const importData = (
   );
   localStorage.setItem('folders', JSON.stringify(newFolders));
 
-  const oldPrompts = localStorage.getItem('prompts');
-  const oldPromptsParsed = oldPrompts ? JSON.parse(oldPrompts) : [];
-  const newPrompts: Prompt[] = [...oldPromptsParsed, ...prompts].filter(
-    (prompt, index, self) =>
-      index === self.findIndex((p) => p.id === prompt.id),
-  );
-  localStorage.setItem('prompts', JSON.stringify(newPrompts));
-
   return {
     version: 4,
     history: newHistory,
     folders: newFolders,
-    prompts: newPrompts,
   };
 };

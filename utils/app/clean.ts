@@ -1,6 +1,6 @@
 import { Conversation } from '@/types/chat';
 
-import { DEFAULT_SYSTEM_PROMPT} from './const';
+import { DEFAULT_SYSTEM_PROMPT } from './const';
 
 export const cleanSelectedConversation = (conversation: Conversation) => {
   // added model for each conversation (3/20/23)
@@ -10,15 +10,6 @@ export const cleanSelectedConversation = (conversation: Conversation) => {
   // added messages (4/16/23)
 
   let updatedConversation = conversation;
-
-
-  // check for system prompt on each conversation
-  if (!updatedConversation.prompt) {
-    updatedConversation = {
-      ...updatedConversation,
-      prompt: updatedConversation.prompt || DEFAULT_SYSTEM_PROMPT,
-    };
-  }
 
   if (!updatedConversation.folderId) {
     updatedConversation = {
