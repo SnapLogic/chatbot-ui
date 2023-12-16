@@ -162,11 +162,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
             console.log("Rendered HTML result with red line: ", answer);
           }
           // **************Redline*****************
-<<<<<<< HEAD
-           
-=======
-
->>>>>>> 235744e (Modify classes to run npm build)
           const updatedMessages: Message[] = [
             ...updatedConversation.messages,
             { role: 'assistant', content: answer },
