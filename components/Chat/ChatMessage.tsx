@@ -213,7 +213,7 @@ export const ChatMessage: FC<Props> = memo(({ message, messageIndex, onEdit }) =
             </div>
           ) : (
             <div className="flex flex-row">
-              <MemoizedReactMarkdown
+              {/* <MemoizedReactMarkdown
                 className="prose dark:prose-invert flex-1"
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeMathjax]}
@@ -265,7 +265,7 @@ export const ChatMessage: FC<Props> = memo(({ message, messageIndex, onEdit }) =
                   },
                 }}
               >
-              </MemoizedReactMarkdown>
+              </MemoizedReactMarkdown> */}
 
               <div className="md:-mr-8 ml-1 md:ml-0 flex flex-col md:flex-row gap-4 md:gap-1 items-center md:items-start justify-end md:justify-start">
                 {isHTMLContent ? (
@@ -274,11 +274,10 @@ export const ChatMessage: FC<Props> = memo(({ message, messageIndex, onEdit }) =
                 ) : (
                   // Render plain text
                   <div>
-                    {`${message.content}${
-                      messageIsStreaming && messageIndex === (selectedConversation?.messages.length ?? 0) - 1
+                    {`${message.content}${messageIsStreaming && messageIndex === (selectedConversation?.messages.length ?? 0) - 1
                         ? '`▍`'
                         : ''
-                    }`}
+                      }`}
                   </div>
                 )}
                 {messagedCopied ? (
