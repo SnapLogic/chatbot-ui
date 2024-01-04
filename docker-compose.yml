@@ -4,6 +4,7 @@ services:
   chatgpt:
     build: .
     ports:
-      - 3000:3000
+      - :80
     environment:
-      - 'OPENAI_API_KEY='
+      - 'NEXT_PUBLIC_API_ENDPOINT=https://snap.elastic.snaplogicdev.com/api/1/rest/slsched/feed/snaplogic/snapchain%20dev/shared/SnapChain%20MovieDB%20Task'
+      - 'NEXT_PUBLIC_BEARER_TOKEN=wF548AbSFEpCSUe5unyqXoTT5JQLB0sZ'

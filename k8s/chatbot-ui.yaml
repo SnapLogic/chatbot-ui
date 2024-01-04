@@ -34,7 +34,7 @@ spec:
           image: <docker user>/chatbot-ui:latest
           resources: {}
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           env:
             - name: OPENAI_API_KEY
               valueFrom:
