@@ -42,7 +42,7 @@
     "@types/react-dom": "^18.2.18",
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/uuid": "^9.0.7",
-    "@vitest/coverage-c8": "^0.33.0",
+    "@vitest/coverage-v8": "^1.1.3",
     "autoprefixer": "^10.4.16",
     "endent": "^2.1.0",
     "eslint": "^8.56.0",
