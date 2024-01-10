@@ -7,13 +7,15 @@
 # CMD ["npm", "start"]
 
 # ---- Base Node ----
-FROM node:20.5-alpine3.18 AS base
+FROM node:21-alpine3.18 AS base
 WORKDIR /app
 COPY package*.json ./
-RUN npm install -g npm@10.2.5
+RUN npm install -g npm@10.3.0
 
 # ---- Dependencies ----
 FROM base AS dependencies
+# Temporarily override the postinstall script
+RUN sed -i 's/"postinstall": ".*"/"postinstall": "echo skipping postinstall"/' package.json
 RUN npm ci
 
 # ---- Build ----
@@ -22,7 +24,7 @@ COPY . .
 RUN npm run build
 
 # ---- Production ----
-FROM node:20.5-alpine3.18 AS production
+FROM node:21-alpine3.18 AS production
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=build /app/.next ./.next
