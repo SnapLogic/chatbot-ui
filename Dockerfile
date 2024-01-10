@@ -14,11 +14,13 @@ RUN npm install -g npm@10.2.5
 
 # ---- Dependencies ----
 FROM base AS dependencies
+RUN npm install -g npm@10.2.5
 RUN npm ci
 
 # ---- Build ----
 FROM dependencies AS build
 COPY . .
+RUN npm install -g npm@10.2.5
 RUN npm run build
 
 # ---- Production ----
