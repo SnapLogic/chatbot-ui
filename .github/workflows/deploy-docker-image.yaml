@@ -38,10 +38,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
   
-      - name: Create and use a new builder instance
-        run: |
-          docker buildx create --name mybuilder --use
-          docker buildx inspect --bootstrap
+      # - name: Create and use a new builder instance
+      #   run: |
+      #     docker buildx create --name mybuilder --use
+      #     docker buildx inspect --bootstrap
   
       - name: Extract Docker metadata
         id: metadata
