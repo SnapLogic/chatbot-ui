@@ -7,7 +7,7 @@
 # CMD ["npm", "start"]
 
 # ---- Base Node ----
-FROM --platform=linux/amd64 node:20.5-alpine3.18 AS base
+FROM node:20.5-alpine3.18 AS base
 WORKDIR /app
 COPY package*.json ./
 RUN npm install -g npm@10.2.5
@@ -22,7 +22,7 @@ COPY . .
 RUN npm run build
 
 # ---- Production ----
-FROM --platform=linux/amd64 node:20.5-alpine3.18 AS production
+FROM node:20.5-alpine3.18 AS production
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=build /app/.next ./.next
