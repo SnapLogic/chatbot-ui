@@ -1,12 +1,12 @@
 name: Build & Publish Docker Image
-on:
-  push:
-    branches:
-      - main
-  
 # on:
-#   release:
-#     types: [published]
+#   push:
+#     branches:
+#       - main
+  
+on:
+  release:
+    types: [published]
 
 jobs:
   push-to-dockerhub-and-ghcr:
@@ -61,8 +61,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: user/app:latest
-          # tags: ${{ steps.metadata.outputs.tags }}
-          # labels: ${{ steps.metadata.outputs.labels }}
+          # tags: user/app:latest
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
           no-cache: true
           # platforms: linux/amd64,linux/arm64
