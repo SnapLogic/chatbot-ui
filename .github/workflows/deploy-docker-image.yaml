@@ -1,7 +1,7 @@
 name: Build & Publish Docker Image
-on:
-  release:
-    types: [published]
+# on:
+#   release:
+#     types: [published]
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -12,7 +12,7 @@ on:
 #   push:
 #     branches: ['main']
 
-# on: [workflow_dispatch]
+on: [workflow_dispatch]
 
 
 jobs:

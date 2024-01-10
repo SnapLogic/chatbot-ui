@@ -6,7 +6,6 @@
 # EXPOSE 3000
 # CMD ["npm", "start"]
 
-
 # ---- Base Node ----
 FROM node:20.3-alpine3.17 AS base
 WORKDIR /app
@@ -22,7 +21,7 @@ COPY . .
 RUN npm run build
 
 # ---- Production ----
-FROM node:19-alpine AS production
+FROM node:20.3-alpine3.17 AS production
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=build /app/.next ./.next
