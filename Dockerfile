@@ -1,38 +1,40 @@
-FROM node:20.3-alpine3.17
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-
-# # ---- Base Node ----
-# FROM node:20.5-alpine3.18 AS base
+# FROM node:20.3-alpine3.17
 # WORKDIR /app
 # COPY package*.json ./
-# RUN npm install -g npm@10.2.5
-
-# # ---- Dependencies ----
-# FROM base AS dependencies
-# RUN npm ci
-
-# # ---- Build ----
-# FROM dependencies AS build
+# RUN npm install
 # COPY . .
-# RUN npm run build
-
-# # ---- Production ----
-# FROM node:20.5-alpine3.18 AS production
-# WORKDIR /app
-# COPY --from=dependencies /app/node_modules ./node_modules
-# COPY --from=build /app/.next ./.next
-# COPY --from=build /app/public ./public
-# COPY --from=build /app/package*.json ./
-# COPY --from=build /app/next.config.js ./next.config.js
-# COPY --from=build /app/next-i18next.config.js ./next-i18next.config.js
-
-# # Expose the port the app will run on
 # EXPOSE 3000
-
-# # Start the application
 # CMD ["npm", "start"]
+
+# ---- Base Node ----
+FROM node:20.5-alpine3.18 AS base
+WORKDIR /app
+COPY package*.json ./
+RUN npm install -g npm@10.2.5
+
+# ---- Dependencies ----
+FROM base AS dependencies
+RUN npm install -g npm@10.2.5
+RUN npm ci
+
+# ---- Build ----
+FROM dependencies AS build
+COPY . .
+RUN npm install -g npm@10.2.5
+RUN npm run build
+
+# ---- Production ----
+FROM node:20.5-alpine3.18 AS production
+WORKDIR /app
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/next.config.js ./next.config.js
+COPY --from=build /app/next-i18next.config.js ./next-i18next.config.js
+
+# Expose the port the app will run on
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]
