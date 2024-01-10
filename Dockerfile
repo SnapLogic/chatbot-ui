@@ -14,9 +14,8 @@ RUN npm install -g npm@10.3.0
 
 # ---- Dependencies ----
 FROM base AS dependencies
-# Temporarily override the postinstall script
-RUN sed -i 's/"postinstall": ".*"/"postinstall": "echo skipping postinstall"/' package.json
-RUN npm ci
+# Temporarily ignore-scripts
+RUN npm ci --ignore-scripts
 
 # ---- Build ----
 FROM dependencies AS build
