@@ -14,7 +14,6 @@ import { useTranslation } from 'next-i18next';
 import {
   saveConversation,
   saveConversations,
-  updateConversation,
 } from '@/utils/app/conversation';
 import { throttle } from '@/utils/data/throttle';
 
@@ -22,7 +21,6 @@ import { ChatBody, Conversation, Message } from '@/types/chat';
 
 import HomeContext from '@/pages/api/home/home.context';
 
-import Spinner from '../Spinner';
 import { ChatInput } from './ChatInput';
 import { ChatLoader } from './ChatLoader';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
@@ -90,23 +88,11 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
         const bearerToken = process.env.NEXT_PUBLIC_BEARER_TOKEN;
 
-        console.log(endpoint)
-        console.log(bearerToken)
-
-        // const endpoint = "http://localhost:8888/api/1/rest/slsched/feed/snaplogic/projects/shared/RAG%20Task"
-
         if (typeof endpoint === 'undefined' || typeof bearerToken === 'undefined') {
           throw new Error('REACT_APP_API_ENDPOINT or REACT_APP_BEARER_TOKEN is not defined');
         }
 
         let body;
-        // if (!plugin) {
-        //   body = JSON.stringify(chatBody);
-        // } else {
-        //   body = JSON.stringify({
-        //     ...chatBody,
-        //   });
-        // }
         const jsonRequest = { "source": null, "prompt": message["content"] };
         const controller = new AbortController();
         console.log("jsonContent", jsonRequest);
@@ -200,13 +186,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
     ],
   );
 
-  const scrollToBottom = useCallback(() => {
-    if (autoScrollEnabled) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-      textareaRef.current?.focus();
-    }
-  }, [autoScrollEnabled]);
-
   const handleScroll = () => {
     if (chatContainerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } =
@@ -232,18 +211,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
   const handleSettings = () => {
     setShowSettings(!showSettings);
-  };
-
-  const onClearAll = () => {
-    if (
-      confirm(t<string>('Are you sure you want to clear all messages?')) &&
-      selectedConversation
-    ) {
-      handleUpdateConversation(selectedConversation, {
-        key: 'messages',
-        value: [],
-      });
-    }
   };
 
   const scrollDown = () => {
