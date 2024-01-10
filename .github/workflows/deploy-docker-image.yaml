@@ -1,7 +1,7 @@
 name: Build & Publish Docker Image
-on:
-  release:
-    types: [published]
+# on:
+#   release:
+#     types: [published]
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -12,7 +12,7 @@ on:
 #   push:
 #     branches: ['main']
 
-# on: [workflow_dispatch]
+on: [workflow_dispatch]
 
 
 jobs:
@@ -51,9 +51,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: shumin12/chatbot-ui
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+          # tags: |
+          #   type=semver,pattern={{version}}
+          #   type=semver,pattern={{major}}.{{minor}}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -64,7 +64,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.metadata.outputs.tags }}
+          tags: v1.1.2
           labels: ${{ steps.metadata.outputs.labels }}
           platforms: linux/amd64,linux/arm64
           no-cache: true
