@@ -55,4 +55,7 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           no-cache: true
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            NEXT_PUBLIC_API_ENDPOINT=https://snapgpt.labs.snaplogicdev.com/api/1/rest/slsched/feed/snaplogic/csirachairat/shared/SnapChain%20Retriever%20Pipeline%20-%20Movies%20Task
+            NEXT_PUBLIC_BEARER_TOKEN=aZ6sa9ZQJ7dtO1nznJbzBlZ51QGpsINb
           
