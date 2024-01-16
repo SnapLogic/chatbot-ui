@@ -1,8 +1,11 @@
 name: Build & Publish Docker Image (multiplatforms)
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
+# on:
+#   push:
+#     branches:
+#       - main
   
 jobs:
   push-to-dockerhub-and-ghcr:
