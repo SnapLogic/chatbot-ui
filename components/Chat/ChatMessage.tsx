@@ -119,7 +119,7 @@ export const ChatMessage: FC<Props> = memo(({ message, messageIndex, onEdit }) =
 
   // Check if the message content contains HTML tags
   const isHTMLContent = /<\/?[a-z][\s\S]*>/i.test(message.content);
-  console.log("Is HTML Content ? : ", isHTMLContent);
+  // console.log("Is HTML Content ? : ", isHTMLContent);
 
   return (
     <div
