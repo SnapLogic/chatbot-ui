@@ -51,7 +51,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: shumin12/chatbot-ui:latest
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
           no-cache: true
           platforms: linux/amd64,linux/arm64
           
