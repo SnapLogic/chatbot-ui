@@ -1,5 +1,5 @@
 # ---- Base Node ----
-FROM node:21-alpine3.18 AS base
+FROM node:21 AS base
 WORKDIR /app
 COPY package*.json ./
 
@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 # ---- Production ----
-FROM node:20.5-alpine3.18 AS production
+FROM node:21 AS production
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=build /app/.next ./.next
