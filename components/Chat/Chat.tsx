@@ -88,6 +88,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
         const bearerToken = process.env.NEXT_PUBLIC_BEARER_TOKEN;
 
+        console.log("env:", process.env);
+
         if (typeof endpoint === 'undefined' || typeof bearerToken === 'undefined') {
           throw new Error('NEXT_PUBLIC_API_ENDPOINT or NEXT_PUBLIC_BEARER_TOKEN is not defined');
         }
