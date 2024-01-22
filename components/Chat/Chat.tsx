@@ -126,7 +126,12 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           const jsonResponse = await response.json();
           console.log("jsonResponse", jsonResponse);
 
-          let answer: string = jsonResponse[0].choices[0].content as string;
+          /*For old llm snaps, please use this line */
+          // let answer: string = jsonResponse[0].choices[0].content as string; 
+
+          /*For new llm snappakcs, please use this line */
+          let answer: string = jsonResponse[0].choices[0].message.content as string;
+
           console.log("LLM snap answer: ", answer);
 
           // **************Redline*****************
