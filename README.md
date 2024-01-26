@@ -8,7 +8,7 @@ This is forked from Chatbot UI, an open source chat UI for AI models.
 ### 1. Clone Repo
 
 ```bash
-git clone https://github.com/shuminCA/chatbot-ui.git
+git clone https://github.com/SnapLogic/chatbot-ui.git
 ```
 
 ### 2. Install Dependencies
