@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next';
 import HomeContext from '@/pages/api/home/home.context';
 
 import { SettingDialog } from '@/components/Settings/SettingDialog';
+import {Key} from '@/components/Settings/Key';
 
 import { Import } from '../../Settings/Import';
 import { SidebarButton } from '../../Sidebar/SidebarButton';
@@ -15,10 +16,10 @@ import { ClearConversations } from './ClearConversations';
 export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
+  const [isKeyDialogOpen, setIsKeyDialog] = useState<boolean>(false);
 
   const {
     state: {
-      serverSidePluginKeysSet,
       conversations,
     },
     dispatch: homeDispatch,
@@ -45,9 +46,22 @@ export const ChatbarSettings = () => {
       />
 
       <SidebarButton
+        text={t('Add Pipeline')}
+        icon={<IconSettings size={18} />}
+        onClick={() => setIsKeyDialog(true)}
+      />
+
+      <SidebarButton
         text={t('Settings')}
         icon={<IconSettings size={18} />}
         onClick={() => setIsSettingDialog(true)}
+      />
+
+      <Key
+        open={isKeyDialogOpen}
+        onClose={() => {
+          setIsKeyDialog(false);
+        }}
       />
 
       <SettingDialog

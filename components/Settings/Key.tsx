@@ -1,3 +1,113 @@
-export const Key = () => {
-  return null;
+import { FC, useContext, useEffect, useReducer, useRef } from 'react';
+
+import { useTranslation } from 'next-i18next';
+
+import { useCreateReducer } from '@/hooks/useCreateReducer';
+
+import { getPipeline, savePipeline } from '@/utils/app/pipeline';
+
+import { Pipeline } from '@/types/pipeline';
+
+import HomeContext from '@/pages/api/home/home.context';
+
+interface Props {
+  open: boolean;
+  onClose: () => void;
+}
+
+export const Key: FC<Props> = ({ open, onClose }) => {
+  const { t } = useTranslation('pipeline');
+  const pipeline: Pipeline = getPipeline();
+  const { state, dispatch } = useCreateReducer<Pipeline>({
+    initialState: pipeline,
+  });
+  const { dispatch: homeDispatch } = useContext(HomeContext);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseDown = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        window.addEventListener('mouseup', handleMouseUp);
+      }
+    };
+
+    const handleMouseUp = (e: MouseEvent) => {
+      window.removeEventListener('mouseup', handleMouseUp);
+      onClose();
+    };
+
+    window.addEventListener('mousedown', handleMouseDown);
+
+    return () => {
+      window.removeEventListener('mousedown', handleMouseDown);
+    };
+  }, [onClose]);
+
+  const handleSave = () => {
+    homeDispatch({ field: 'lightMode', value: state.endpoint });
+    homeDispatch({ field: 'lightMode', value: state.bearerToken });
+    savePipeline(state);
+  };
+
+  // Render nothing if the dialog is not open.
+  if (!open) {
+    return <></>;
+  }
+
+  // Render the dialog.
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="fixed inset-0 z-10 overflow-hidden">
+        <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+          <div
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
+            aria-hidden="true"
+          />
+
+          <div
+            ref={modalRef}
+            className="dark:border-netural-400 inline-block max-h-[400px] transform overflow-y-auto rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[600px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle"
+            role="dialog"
+          >
+            <div className="text-lg pb-4 font-bold text-black dark:text-neutral-200">
+              {t('Configure Pipeline')}
+            </div>
+
+            <div className="text-sm font-bold mb-2 text-black dark:text-neutral-200">
+              {t('Endpoint')}
+            </div>
+            <input
+              className="w-full mb-4 p-2 border text-black border-gray-300 rounded"
+              value={state.endpoint}
+              onChange={(e) =>
+                dispatch({ field: 'endpoint', value: e.target.value })
+              }
+            />
+
+            <div className="text-sm font-bold mb-2 text-black dark:text-neutral-200">
+              {t('Bearer Token')}
+            </div>
+            <input
+              className="w-full mb-4 p-2 border  text-black border-gray-300 rounded"
+              value={state.bearerToken}
+              onChange={(e) =>
+                dispatch({ field: 'bearerToken', value: e.target.value })
+              }
+            />
+
+            <button
+              type="button"
+              className="w-full px-4 py-2 mt-6 border rounded-lg shadow border-neutral-500 text-neutral-900 hover:bg-neutral-100 focus:outline-none dark:border-neutral-800 dark:border-opacity-50 dark:bg-white dark:text-black dark:hover:bg-neutral-300"
+              onClick={() => {
+                handleSave();
+                onClose();
+              }}
+            >
+              {t('Save')}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };

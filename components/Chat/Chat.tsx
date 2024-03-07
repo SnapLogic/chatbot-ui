@@ -25,6 +25,8 @@ import { ChatInput } from './ChatInput';
 import { ChatLoader } from './ChatLoader';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { Logo } from './Logo';
+import { Pipeline } from '@/types/pipeline';
+import { getPipeline } from '@/utils/app/pipeline';
 
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
@@ -85,11 +87,14 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         const chatBody: ChatBody = {
           messages: updatedConversation.messages,
         };
-        const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
-        const bearerToken = process.env.NEXT_PUBLIC_BEARER_TOKEN;
 
-        console.log("process.env.NEXT_PUBLIC_API_ENDPOINT", process.env.NEXT_PUBLIC_API_ENDPOINT);
-        console.log("process.env.NEXT_PUBLIC_BEARER_TOKEN", process.env.NEXT_PUBLIC_BEARER_TOKEN);
+        const pipeline = getPipeline();
+        
+        const endpoint = pipeline.endpoint;
+        const bearerToken = pipeline.bearerToken;
+
+        console.log("endpoint", endpoint);
+        console.log("bearerToken", bearerToken);
 
         if (typeof endpoint === 'undefined' || typeof bearerToken === 'undefined') {
           throw new Error('NEXT_PUBLIC_API_ENDPOINT or NEXT_PUBLIC_BEARER_TOKEN is not defined');
