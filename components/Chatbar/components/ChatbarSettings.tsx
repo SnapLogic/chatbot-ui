@@ -1,4 +1,4 @@
-import { IconFileExport, IconSettings } from '@tabler/icons-react';
+import { IconFileExport, IconSettings, IconVectorSpline} from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
@@ -47,7 +47,7 @@ export const ChatbarSettings = () => {
 
       <SidebarButton
         text={t('Add Pipeline')}
-        icon={<IconSettings size={18} />}
+        icon={<IconVectorSpline size={18} />}
         onClick={() => setIsKeyDialog(true)}
       />
 

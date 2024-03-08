@@ -25,7 +25,6 @@ import { ChatInput } from './ChatInput';
 import { ChatLoader } from './ChatLoader';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { Logo } from './Logo';
-import { Pipeline } from '@/types/pipeline';
 import { getPipeline } from '@/utils/app/pipeline';
 
 interface Props {
