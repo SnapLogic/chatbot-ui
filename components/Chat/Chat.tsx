@@ -96,7 +96,10 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         }
 
         let body;
-        const jsonRequest = { "source": null, "prompt": message["content"] };
+        // print the current conversation
+        console.log("current conversation: ", updatedConversation.messages);
+        // const jsonRequest = { "source": null, "prompt": message["content"] };
+        const jsonRequest = {"messages": updatedConversation.messages};
         const controller = new AbortController();
         console.log("jsonContent", jsonRequest);
         body = JSON.stringify(jsonRequest);
@@ -130,7 +133,10 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           // let answer: string = jsonResponse[0].choices[0].content as string; 
 
           /*For new llm snappakcs, please use this line */
-          let answer: string = jsonResponse[0].choices[0].message.content as string;
+          let answer: string = jsonResponse[0].content as string;
+
+          // replace all '\n' to '<br>' for new line TODO: for now only, need to find a better way to handle this
+          answer = answer.replace(/\n/g, '<br>');
 
           console.log("LLM snap answer: ", answer);
 

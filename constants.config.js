@@ -1,6 +1,6 @@
 const CONSTANTS = {
-    chatbotTitle: "Movie Bot",
-    chatbotName: "Movie Bot",
+    chatbotTitle: "Blog Agent",
+    chatbotName: "Blog Agent",
 };
 
 module.exports = CONSTANTS;
